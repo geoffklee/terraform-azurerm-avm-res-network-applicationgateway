@@ -79,6 +79,9 @@ resource "azurerm_application_gateway" "this" {
   frontend_ip_configuration {
     name                 = coalesce(var.frontend_ip_configuration_public_name, local.frontend_ip_configuration_name)
     public_ip_address_id = var.create_public_ip == true ? azurerm_public_ip.this[0].id : var.public_ip_resource_id
+    # Local change to this module to accommodate our need to attach a private link configuration to the public frontend IP
+    # see https://github.com/Azure/terraform-azurerm-avm-res-network-applicationgateway/issues/108
+    private_link_configuration_name = var.public_frontend_private_link_configuration_name == null ? null : var.public_frontend_private_link_configuration_name
   }
   # Private Frontend IP configuration
   dynamic "frontend_ip_configuration" {
