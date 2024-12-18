@@ -321,6 +321,12 @@ variable "frontend_ip_configuration_public_name" {
   description = "(Optional) The name of the public Frontend IP Configuration.  If not supplied will be inferred from the resource name."
 }
 
+variable "public_frontend_private_link_configuration_name" {
+  type        = string
+  default     = null
+  description = "(Optional) The name of a private link configuration for the public Frontend IP Configuration"
+}
+
 variable "global" {
   type = object({
     request_buffering_enabled  = bool
